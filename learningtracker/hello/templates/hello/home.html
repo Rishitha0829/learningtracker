@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>LearningTracker - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            color: yellow;
+        }
+        section {
+            padding: 40px;
+        }
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+
+<header>
+    <h1>Welcome to LearningTracker</h1>
+    <p>Track Your Learning Progress Easily</p>
+</header>
+
+
+<div class="container mt-5">     
+    <div class="row text-center mt-3">
+        <div class="col bg-danger text-white p-2">Column 1</div>
+        <div class="col bg-dark text-white p-2">Column 2</div>
+        <div class="col bg-primary text-white p-2">Column 3</div>
+    </div>
+</div>
+
+
+    <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My Tracker
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Courses</a></li>
+    <li><a class="dropdown-item" href="#">Progress</a></li>
+    <li><a class="dropdown-item" href="#">Assignments</a></li>
+  </ul>
+</div>
+
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Accounts
+  </button>
+  <ul class="dropdown-menu">
+<li><a href="{% url 'login' %}">Login</a></li>
+<li><a href="{% url 'register' %}">Register</a></li>
+<li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+</div>
+
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'images/img1.jpg' %}" width="300" height="300" class="d-block w-100" alt="Image">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/img2.jpg' %}" width="300" height="300" class="d-block w-100" alt="Image">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/img3.jpg' %}" width="300" height="300" class="d-block w-100" alt="Image">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- Table 1 -->
+    <div class="container mt-4">
+        <table class="table table-bordered text-center">
+            <thead class="table-secondary">
+                <tr>
+                    <th>Course</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Python</td>
+                    <td><img src="{% static 'images/python.png' %}" width="100"></td>
+                </tr>
+                <tr>
+                    <td>Django</td>
+                    <td><img src="{% static 'images/django.png' %}" width="100"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+<div class="container mt-5">
+    <h3 class="text-center">Course Table</h3>
+    <table class="table table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Course</th>
+                <th>Status</th>
+                <th>Progress (%)</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            <tr>
+                <td>{{ course.name }}</td>
+                <td>
+                    {% if course.status == "Completed" %}
+                        <span class="badge bg-success">Completed</span>
+                    {% elif course.status == "In Progress" %}
+                        <span class="badge bg-warning text-dark">In Progress</span>
+                    {% else %}
+                        <span class="badge bg-danger">Not Started</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if course.progress >= 80 %}
+                        <span class="text-success">{{ course.progress }}%</span>
+                    {% elif course.progress >= 50 %}
+                        <span class="text-warning">{{ course.progress }}%</span>
+                    {% else %}
+                        <span class="text-danger">{{ course.progress }}%</span>
+                    {% endif %}
+                </td>=
+                <td>
+                    <img src="{{ course.image.url }}" width="100">
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No Courses Available</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="container mt-5">
+    <h3 class="text-center">Student Table</h3>
+    <table class="table table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.age }}</td>
+                <td>
+                    <span class="badge bg-info text-dark">
+                        {{ student.course.name }}
+                    </span>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No Students </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+</body>
+</html>

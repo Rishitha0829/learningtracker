@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Learningtracker Register</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#eef2f7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+.container{
+    background:white;
+    padding:45px;
+    width:420px;
+    border-radius:10px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+}
+h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+input{
+    width:100%;
+    padding:12px;
+    margin:12px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:14px;
+}
+button{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    border:none;
+    color:white;
+    font-size:16px;
+    border-radius:6px;
+    cursor:pointer;
+}
+button:hover{
+    background:#1e40af;
+}
+p{
+    text-align:center;
+    margin-top:18px;
+}
+a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:500;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Create Learningtracker Account</h2>
+<form method="POST">
+{% csrf_token %}
+<input type="text" name="full_name" placeholder="Full Name" required>
+<input type="text" name="username" placeholder="Username" required>
+<input type="email" name="email" placeholder="Email" required>
+<input type="text" name="roll_no" placeholder="Roll Number" required>
+<input type="text" name="department" placeholder="Department (CSE, IT, ECE...)" required>
+<input type="text" name="year" placeholder="Year (1st, 2nd, 3rd, 4th)" required>
+<input type="text" name="phone" placeholder="Phone Number" required>
+<input type="password" name="password" placeholder="Password" required>
+<input type="password" name="confirm_password" placeholder="Confirm Password" required>
+<button type="submit">Register</button>
+</form>
+<p>Already have an account? <a href="/login/">Login</a></p>
+</div>
+</body>
+</html
